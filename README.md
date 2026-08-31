@@ -78,3 +78,27 @@ MCU  -> RESULT {Abha=-23.0/18.0/59.2, Abidjan=-16.2/26.0/67.3, Abéché=-10.0/29
 - The MCU must parse the text format itself.
 - The MCU decides via `GET <count>` how many lines it can receive at once.
 - results are to be reported as JSON in accordance to the 1brc standard
+
+## WebSerial host page
+
+This repository now includes a pure HTML/CSS/JavaScript host (`/index.html`) that talks to the MCU through Web Serial and serves synthetic weather lines on demand.
+
+### 1BRC-style synthetic data generation
+
+The generator mirrors the original 1BRC `CreateMeasurements` approach:
+
+- Randomly pick one weather station from the 1BRC station list (uniform selection).
+- Generate a temperature from a Gaussian/normal distribution centered at that station's mean.
+- Use a standard deviation of `10`.
+- Round to one decimal and emit lines in `Station;temperature\\n` format.
+
+### How to use
+
+1. Open `index.html` in a Chromium-based browser (HTTPS or localhost).
+2. Click **Connect MCU** and select the serial device.
+3. Set the total number of synthetic rows to make available.
+4. Start your MCU benchmark using:
+   - `START`
+   - repeated `GET <count>`
+   - host replies with exact line counts until it returns `END`
+   - MCU returns `RESULT ...`

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MCU Showdown Host</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <h1>MCU Showdown Host</h1>
+    <p class="subtitle">1BRC-style synthetic weather lines over Web Serial</p>
+
+    <section class="card controls">
+      <label>Baud rate <input id="baudRate" type="number" value="115200" min="300" step="1"></label>
+      <label>Total synthetic rows <input id="totalRows" type="number" value="1000000" min="1" step="1"></label>
+      <div class="buttons">
+        <button id="connectBtn">Connect MCU</button>
+        <button id="disconnectBtn" disabled>Disconnect</button>
+      </div>
+      <p id="serialSupport" class="hint"></p>
+    </section>
+
+    <section class="card stats">
+      <div><span>Status:</span> <strong id="status">Disconnected</strong></div>
+      <div><span>Rows remaining:</span> <strong id="remaining">0</strong></div>
+      <div><span>Rows sent:</span> <strong id="sent">0</strong></div>
+      <div><span>Session rows/s:</span> <strong id="rps">0</strong></div>
+    </section>
+
+    <section class="card">
+      <h2>Session log</h2>
+      <pre id="log" aria-live="polite"></pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
